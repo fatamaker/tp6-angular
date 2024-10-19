@@ -8,6 +8,9 @@ import { AddFormationComponent } from './add-formation/add-formation.component';
 import { FormsModule } from '@angular/forms';
 
 import { UpdateFormationComponent } from './update-formation/update-formation.component';
+import { RechercheParThemeComponent } from './recherche-par-theme/recherche-par-theme.component';
+import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
+import { SearchFilterPipe } from './search-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +18,11 @@ import { UpdateFormationComponent } from './update-formation/update-formation.co
     FormationComponent,
     AddFormationComponent,
   
-    UpdateFormationComponent
+    UpdateFormationComponent,
+        RechercheParThemeComponent,
+        RechercheParNomComponent,
+        SearchFilterPipe
+        
     
   ],
   imports: [

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Formation } from '../model/formation.model';
 import { Theme } from '../model/theme.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { Theme } from '../model/theme.model';
 export class FormationService {
   formations : Formation [];
   themes:Theme[];
+  formationRecherche!: Formation[];
  
 
   constructor() {
@@ -24,6 +26,9 @@ export class FormationService {
   }
   listeFormation():Formation[] {
     return this.formations;
+}
+getAllFormations(): Formation[] {
+  return this.formations;
 }
 ajouterFormation( form: Formation){
 this.formations.push(form);
@@ -68,6 +73,22 @@ trierFormation(){
   consulterTheme(id :number):Theme{
     return this.themes.find(them => them.idTheme == id)!;
   }
+  rechercherParTheme(idTheme: number): Formation[]{
+    this.formationRecherche = [];
+    this.formations.forEach((cur, index) => {
+    if(idTheme == cur.theme!.idTheme) {
+    console.log("cur "+cur);
+    this.formationRecherche.push(cur);
+    }
+    });
+ 
+  
+  
+    return this.formationRecherche;
+    }
+    
+    
+      
  
  
 

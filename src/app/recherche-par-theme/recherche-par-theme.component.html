@@ -1,0 +1,36 @@
+<div class="container">
+    <br>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-4" >
+        <label>Theme </label>
+        
+        <select class="form-select" id="idTheme" name="idTheme"
+        [(ngModel)]="idTheme" (change)="onChange()">
+        
+        <option *ngFor="let them of themes" value="{{them.idTheme}}">
+        {{them.nomTheme}}
+        </option>
+        </select>
+        </div>
+    <br>
+    <div class="card shadow mb-4">
+    <div class="card-body">
+    <table class="table table-striped">
+    <tr> <th>Id</th><th>Nom</th> <th>Prix</th> <th>Date debut</th> <th>Date fin</th> <th>Mode</th> <th>Theme</th>  </tr>
+    <tbody *ngFor="let formation of formations">
+    <tr >
+    <td>{{formation.idFormation}}</td>
+    <td>{{formation.nomFormation}}</td>
+    <td>{{formation.prixFormation}}</td>
+    <td>{{formation.datedebut | date:'dd/MM/yyyy'}}</td>
+    <td>{{formation.datefin | date:'dd/MM/yyyy'}}</td>
+    <td>{{formation.modeFormation}}</td> 
+    <td>{{formation.theme?.nomTheme}}</td>
+ 
+    
+    
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    </div>
