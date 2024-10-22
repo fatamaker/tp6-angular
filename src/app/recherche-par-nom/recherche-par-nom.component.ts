@@ -16,7 +16,7 @@ export class RechercheParNomComponent implements OnInit {
   
   constructor(private formationService: FormationService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
    
     this.formations = this.formationService.listeFormation();
     this.allFormations = this.formations;

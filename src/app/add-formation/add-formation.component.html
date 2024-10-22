@@ -4,33 +4,57 @@
     <div>
     <h2>Ajouter une Formation :</h2>
     </div>
-    <form >
+    <form (ngSubmit)="addFormation()" [formGroup]="myForm">
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">ID</span>
-            <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="newFormation.idFormation"  name="IDFormation">
+            <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="newFormation.idFormation" formControlName="idFormation"  name="IDFormation">
+          </div>
+          <div *ngIf="myForm.controls['idFormation'].invalid && (myForm.controls['idFormation'].dirty || myForm.controls['idFormation'].touched)" class="text-danger">
+            <div *ngIf="myForm.controls['idFormation'].errors?.['required']">Id de Formation est obligatoire.</div>
           </div>
           
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Nom de la formation" aria-label="Recipient's username" aria-describedby="basic-addon2" [(ngModel)]="newFormation.nomFormation"  name="nomFormation">
-            
+            <input type="text" class="form-control" placeholder="Nom de la formation" aria-label="Recipient's username" aria-describedby="basic-addon2" [(ngModel)]="newFormation.nomFormation" formControlName="nomFormation" name="nomFormation">
+          </div>
+          <div *ngIf="myForm.controls['nomFormation'].invalid && (myForm.controls['nomFormation'].dirty || myForm.controls['nomFormation'].touched)" class="text-danger">
+            <span *ngIf="myForm.controls['nomFormation'].errors?.['required']">Nom Formation est obligatoire.</span>
+            <div *ngIf="myForm.controls['nomFormation'].errors?.['minlength']">Nom Formation doit avoir au moins 10 caractères.</div>
+            <div *ngIf="myForm.controls['nomFormation'].errors?.['maxlength']">Nom Formation ne peut pas dépasser 50 caractères.</div>
           </div>
           
 
           <label>Prix Formation</label>
           <div class="input-group mb-3">
             <span class="input-group-text">$</span>
-            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="newFormation.prixFormation"  name="prixFormation">
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" [(ngModel)]="newFormation.prixFormation" formControlName="prixFormation" name="prixFormation">
             <span class="input-group-text">0.00</span>
           </div>
+          <div *ngIf="myForm.controls['prixFormation'].invalid && (myForm.controls['prixFormation'].dirty || myForm.controls['prixFormation'].touched)" class="text-danger">
+            <div *ngIf="myForm.controls['prixFormation'].errors?.['required']">Prix Formation est obligatoire.</div>
+            <div *ngIf="myForm.controls['prixFormation'].errors?.['min']">Prix Formation doit être un nombre positif.</div>
+          </div>
+
           <label>Date</label>
           <div class="input-group mb-3">
-            <input type="date"  name="dateCreation" class="form-control" placeholder="date de debut" [(ngModel)]="newFormation.datedebut">
+            <input type="date"  name="dateCreation" class="form-control" placeholder="date de debut" formControlName="datedebut" [(ngModel)]="newFormation.datedebut">
+            
 
             <span class="input-group-text"></span>
-            <input type="date"  name="datefin" class="form-control"   [(ngModel)]="newFormation.datefin">
+            <input type="date"  name="datefin" class="form-control" formControlName="datefin"   [(ngModel)]="newFormation.datefin">
           </div>
+          <div class="col-md-6">
+            <label class="form-label">email</label>
+            <input type="text" name="email" class="form-control" formControlName="email" [(ngModel)]="user.email">
+          </div>
+        <span *ngIf="myForm.controls['email'].hasError('required') && myForm.controls['email'].touched" class="text-danger">
+         email est obligatoire
+        </span>
+        <span *ngIf="myForm.controls['email'].hasError('email') && myForm.controls['email'].touched" class="text-danger">
+            email est non valide
+           </span>
+        
           <label>mode Formation</label>
-          <select class="form-select" aria-label="Default select example"  name="modeFormation" [(ngModel)]="newFormation.modeFormation">
+          <select class="form-select" aria-label="Default select example"  name="modeFormation" formControlName="modeFormation" [(ngModel)]="newFormation.modeFormation">
             
             <option value="en ligne">en ligne</option>
             <option value="en personne">en personne</option>
@@ -40,7 +64,7 @@
             <br>
             <label>Theme</label>
             <select class="form-select"id="newIdThem" name="newIdThem"
-            [(ngModel)]="newIdThem">
+            [(ngModel)]="newIdThem" formControlName="idCat">
              <option *ngFor="let them of themes" [value]="them.idTheme" >
              {{them.nomTheme}}
             </option>
@@ -48,7 +72,7 @@
             <br>
             </div>
           <div class="mt-2">
-            <button type="submit" class="btn btn-success" (click)="addFormation()">Ajouter</button>
+            <button type="submit" class="btn btn-success"  [disabled]="myForm.invalid" (click)="OnRegister()">Ajouter</button>
             </div>
             
     </form>

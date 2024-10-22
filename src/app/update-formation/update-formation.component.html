@@ -4,30 +4,41 @@
     <div>
     <h2>Modifier une formation :</h2>
     </div>
-    <form (ngSubmit)="updateFormation()">
+    <form (ngSubmit)="updateFormation()" [formGroup]="myForm">
         <div hidden class="col-sm-2 col-md-2 col-lg-2">
             <label >ID formation</label>
             <input type="text" [(ngModel)]="currentFormation.idFormation"
-            name="idFormation" class="form-control">
+            name="idFormation" formControlName="idFormation" class="form-control">
             </div>
     <div class="col-sm-4 col-md-4 col-lg-4" >
     <label >Nom Formation</label>
-    <input type="text"[(ngModel)]= "currentFormation.nomFormation" name="nomFormation" class="form-control">
+    <input type="text"[(ngModel)]= "currentFormation.nomFormation" name="nomFormation" formControlName="nomFormation" class="form-control">
     </div>
     <div class="col-sm-2 col-md-2 col-lg-2">
     <label >Prix Formation</label>
-    <input type="number" [(ngModel)]= "currentFormation.prixFormation" name="prixFormation" class="form-control">
+    <input type="number" [(ngModel)]= "currentFormation.prixFormation" name="prixFormation" formControlName="prixFormation" class="form-control">
     </div>
 
     <div class="col-sm-4 col-md-4 col-lg-4">
         <label >Date de debut</label>
-<input type="date" [ngModel]="currentFormation.datedebut | date: 'yyyy-MM-dd'" name="datedebut" class="form-control">
+<input type="date" [ngModel]="currentFormation.datedebut | date: 'yyyy-MM-dd'" name="datedebut"  formControlName="datedebut"  class="form-control">
 </div>
 
 <div class="col-sm-4 col-md-4 col-lg-4">
     <label >Date de fin</label>
-<input type="date" [ngModel]="currentFormation.datefin | date: 'yyyy-MM-dd'" name="datefin" class="form-control">
+<input type="date" [ngModel]="currentFormation.datefin | date: 'yyyy-MM-dd'" name="datefin" formControlName="datefin" class="form-control">
 </div>
+
+<div class="col-md-6">
+    <label class="form-label">email</label>
+    <input type="text" name="email" class="form-control" formControlName="email" [(ngModel)]="user.email">
+  </div>
+<span *ngIf="myForm.controls['email'].hasError('required') && myForm.controls['email'].touched" class="text-danger">
+ email est obligatoire
+</span>
+<span *ngIf="myForm.controls['email'].hasError('email') && myForm.controls['email'].touched" class="text-danger">
+    email est non valide
+   </span>
 
 <div class="col-sm-2 col-md-2 col-lg-2">
     
@@ -35,7 +46,7 @@
 
     <label>mode Formation</label>
     <br>
-    <select class="form-select" aria-label="Default select example"  name="modeFormation" [(ngModel)]= "currentFormation.modeFormation">
+    <select class="form-select" aria-label="Default select example"  name="modeFormation" formControlName="modeFormation" [(ngModel)]= "currentFormation.modeFormation">
       <option selected>Mode de la formation</option>
       <option value="en ligne">en ligne</option>
       <option value="en personne">en personne</option>
@@ -47,7 +58,7 @@
     <label >Theme</label>
     <div class="col-sm-4 col-md-4 col-lg-4">
         <select class="form-select" id="idCat" name="idCat"
-        [(ngModel)]="updatedThemId">
+        [(ngModel)]="updatedThemId" formControlName="idCat">
         <option *ngFor="let cat of themes" [value]="cat.idTheme" >
         {{cat.nomTheme}}
         </option>
@@ -55,7 +66,7 @@
         </div>
         <br>
 
-<button type="submit" class="btn btn-success">Modifier</button>
+<button type="submit" class="btn btn-success"  [disabled]="myForm.invalid" (click)="OnRegister()">Modifier</button>
 </div>
 </form>
 </div>

@@ -3,6 +3,8 @@ import { Formation } from '../model/formation.model';
 import { FormationService } from '../service/formation.service';
 import { Router } from '@angular/router';
 import { Theme } from '../model/theme.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'app-add-formation',
@@ -14,12 +16,25 @@ export class AddFormationComponent implements OnInit {
   themes! : Theme[];
   newIdThem! : number;
   newTheme! : Theme;
+  myForm!:FormGroup;
+  public user = new User();
 
-  constructor(private formationService:  FormationService , private router :Router,){
+
+  constructor(private formationService:  FormationService , private router :Router, private formBuilder : FormBuilder){
     
   }
   ngOnInit(): void{
     this.themes = this.formationService.listerTheme();
+    this.myForm=this.formBuilder.group({
+      idFormation: [this.newFormation.idFormation,Validators.required],
+      nomFormation: [this.newFormation,[Validators.required, Validators.minLength(10), Validators.maxLength(50)]],
+      prixFormation: [this.newFormation.prixFormation ,[Validators.required, Validators.min(0)]],
+      datedebut: [this.newFormation.datedebut],
+      datefin: [this.newFormation.datefin],
+      email: ['', [Validators.required, Validators.email]],
+      modeFormation: [this.newFormation.modeFormation],
+      idCat: [this.newTheme!]
+    });
   }
 
 
@@ -30,4 +45,10 @@ export class AddFormationComponent implements OnInit {
     this.formationService.ajouterFormation(this.newFormation);
     this.router.navigate(['formation']);
     }
+
+    
+OnRegister(){
+  console.log(this.user);
+}
+
 }

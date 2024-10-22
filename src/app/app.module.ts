@@ -5,12 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormationComponent } from './formation/formation.component';
 import { AddFormationComponent } from './add-formation/add-formation.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UpdateFormationComponent } from './update-formation/update-formation.component';
 import { RechercheParThemeComponent } from './recherche-par-theme/recherche-par-theme.component';
 import { RechercheParNomComponent } from './recherche-par-nom/recherche-par-nom.component';
 import { SearchFilterPipe } from './search-filter.pipe';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SearchFilterPipe } from './search-filter.pipe';
     UpdateFormationComponent,
         RechercheParThemeComponent,
         RechercheParNomComponent,
-        SearchFilterPipe
+        SearchFilterPipe,
+        RegisterComponent
         
     
   ],
@@ -29,6 +31,7 @@ import { SearchFilterPipe } from './search-filter.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()
